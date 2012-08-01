@@ -20,7 +20,7 @@ function getman($sex,$grade){
 		else{
 			$max = rand(0,8975);
 		}
-		$query = mysql_query("SELECT * FROM user WHERE sex = '".$sex."' LIMIT ".$max.",1");
+		$query = mysql_query("SELECT * FROM user WHERE sex = '".intval($sex)."' LIMIT ".$max.",1");
 	}
 	else{
 		if($sex==0){
@@ -29,7 +29,7 @@ function getman($sex,$grade){
 		else{
 			$max = rand(0,$max_grade[$grade][1]);
 		}
-		$query = mysql_query("SELECT * FROM user WHERE sex = '".$sex."' AND grade = '".$grade."' LIMIT ".$max.",1");
+		$query = mysql_query("SELECT * FROM user WHERE sex = '".intval($sex)."' AND grade = '".intval($grade)."' LIMIT ".$max.",1");
 	}
 	
 	if($query==FALSE){
@@ -48,10 +48,10 @@ if(isset($_POST['grade'])){
 }
 if(isset($_POST['uid'])){
 		$uid = authcode($_POST['uid'],'DECODE','itissofinehere',600);
-		$query_select = mysql_query("SELECT * FROM user WHERE uid = '".$uid."' LIMIT 1");
+		$query_select = mysql_query("SELECT * FROM user WHERE uid = '".intval($uid)."' LIMIT 1");
 		$row = mysql_fetch_array($query_select);
 		$count = ++$row['count'];
-		mysql_query("UPDATE user SET count = '".$count."' WHERE uid = '".$uid."'");
+		mysql_query("UPDATE user SET count = '".intval($count)."' WHERE uid = '".intval($uid)."'");
 }
 if(isset($_POST['sex'])){
 	$sex = intval($_POST['sex']);
